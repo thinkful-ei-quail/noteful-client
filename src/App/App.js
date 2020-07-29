@@ -19,6 +19,12 @@ class App extends Component {
 
   //static contextType = NotesContext;
 
+  handleDeleteNote = (noteId) => {
+    this.setState({
+      notes: this.state.notes.filter((note) => note.id !== noteId),
+    });
+  };
+
   componentDidMount() {
     // fake date loading from API call
     //setTimeout(() => this.setState(dummyStore), 600);
@@ -42,32 +48,6 @@ class App extends Component {
       .catch((error) => {
         console.log({ error });
       });
-
-    //this.context.notes = [
-    // const notes = [
-    //   {
-    //     id: "d26e12c2-ffaf-11e8-8eb2-f2801f1b9fd1",
-    //     name: "Turtles",
-    //     modified: "2018-09-11T23:00:00.000Z",
-    //     folderId: "b07161a6-ffaf-11e8-8eb2-f2801f1b9fd1",
-    //     content:
-    //       "Fugiat dolores et nostrum laborum id delectus sint reiciendis. Recusandae nulla repellendus. Labore eum hic nesciunt enim corporis necessitatibus. Iusto pariatur aut qui blanditiis.\n \rTempore et vel ut maxime et reprehenderit deleniti esse officia. Laboriosam et reiciendis distinctio qui enim. Amet suscipit sit.\n \rVitae id impedit reprehenderit eveniet nesciunt et soluta. Labore aliquam sed dolores voluptatibus est omnis quo molestias aut. Dolor optio sed alias excepturi delectus aut consequuntur veniam nemo.",
-    //   },
-    //   {
-    //     id: "d26e1452-ffaf-11e8-8eb2-f2801f1b9fd1",
-    //     name: "Zebras",
-    //     modified: "2018-08-13T23:00:00.000Z",
-    //     folderId: "b07161a6-ffaf-11e8-8eb2-f2801f1b9fd1",
-    //     content:
-    //       "Veritatis porro minima perspiciatis. Repellat veniam quo iste ut. Iusto voluptas quae quibusdam. Odit neque iusto cupiditate iste quam. Fuga itaque aut praesentium ullam saepe ut et vero.\n \rQuisquam doloremque molestiae. Enim rerum dolorem et velit itaque magnam laborum. Aut officiis porro.\n \rQuae eum eaque error. Sed itaque ipsam nam provident aut voluptate. Perferendis repudiandae sequi laudantium est est animi eum. Unde alias et doloribus est hic et. Sed distinctio incidunt maiores aut voluptatibus et omnis mollitia fugit.",
-    //   },
-    // ];
-
-    // //this.context.folders = [
-    // const folders = [
-    //   { id: "b07161a6-ffaf-11e8-8eb2-f2801f1b9fd1", name: "Super" },
-    // ];
-    //this.setState({ context: this.context });
   }
 
   renderNavRoutes() {
@@ -97,7 +77,11 @@ class App extends Component {
   }
 
   render() {
-    const value = { notes: this.state.notes, folders: this.state.folders };
+    const value = {
+      notes: this.state.notes,
+      folders: this.state.folders,
+      deleteNote: this.handleDeleteNote,
+    };
     //const values = { ...this.state };
     return (
       <NotesContext.Provider value={value}>
